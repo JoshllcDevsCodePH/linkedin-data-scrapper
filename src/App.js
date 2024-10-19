@@ -15,16 +15,18 @@ function App() {
     }
     setIsLoading(true);
     try {
-      const requestUrl = `https://www.linkedin.com/in/scrape?url=${url}`;
+      const requestUrl = `https://data-scrapper-joshllc.netlify.app/scrape?url=${url}`;
+      console.log('Fetching data from:', requestUrl);
       const response = await fetch(requestUrl);
       if (!response.ok) {
         throw new Error(`Failed to fetch data (${response.status})`);
       }
       const data = await response.json();
       setOutput(data);
-      setIsLoading(false);
     } catch (error) {
+      console.error('Fetch error:', error);
       setOutput({ error: error.message });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -46,8 +48,19 @@ function App() {
       <h1>LinkedIn Profile Scraper</h1>
       <p>Enter the URL of the LinkedIn profile you want to extract data from:</p>
       <form onSubmit={handleSubmit}>
-        <input type="text" id="url-input" placeholder="e.g. https://www.linkedin.com/in/johndoe" value={url} onChange={handleInputChange} />
-        <button type="submit" id="submit-button" onMouseOver={handleButtonHover} onMouseLeave={handleButtonLeave}>
+        <input
+          type="text"
+          id="url-input"
+          placeholder="e.g. https://www.linkedin.com/in/johndoe"
+          value={url}
+          onChange={handleInputChange}
+        />
+        <button
+          type="submit"
+          id="submit-button"
+          onMouseOver={handleButtonHover}
+          onMouseLeave={handleButtonLeave}
+        >
           Extract Data
         </button>
       </form>
