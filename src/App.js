@@ -15,7 +15,7 @@ function App() {
     }
     setIsLoading(true);
     try {
-      const requestUrl = `http://localhost:3001/scrape?url=${url}`;
+      const requestUrl = `https://data-scrapper-joshllc.netlify.app/scrape?url=${url}`;
       const response = await fetch(requestUrl);
       if (!response.ok) {
         throw new Error(`Failed to fetch data (${response.status})`);
